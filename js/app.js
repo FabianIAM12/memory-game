@@ -25,6 +25,29 @@ function shuffle(array) {
     return array;
 }
 
+var classname = document.getElementsByClassName("card");
+
+for (var i = 0; i < classname.length; i++) {
+    classname[i].addEventListener('click', function (){
+        this.classList.add("match");
+
+        console.log(this.childNode[0]);
+        //setTimeout(function(){ alert("Hello"); }, 2000);
+
+    }, false);
+}
+
+
+/*
+const mainHeading = document.body.querySelectorAll('.card');
+
+mainHeading.addEventListener('click', function () {
+    console.log('The heading was clicked!');
+});
+*/
+
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
