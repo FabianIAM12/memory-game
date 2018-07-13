@@ -1,50 +1,39 @@
-/*
- * Create a list that holds all of your cards
- */
-
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
+let open_ids = [];
+let touched_ids = []
 let open_cards = [];
+let stars = 0;
+let card_icons = [
+    'fa-diamond',
+    'fa-paper-plane-o',
+    'fa-anchor',
+    'fa-bolt',
+    'fa-cube',
+    'fa-anchor',
+    'fa-leaf',
+    'fa-bicycle',
+    'fa-diamond',
+    'fa-bomb',
+    'fa-leaf',
+    'fa-bomb',
+    'fa-bolt',
+    'fa-bicycle',
+    'fa-paper-plane-o',
+    'fa-cube'
+];
 
-function set_action_counter_up() {
-    let value = parseInt(document.getElementsByClassName("moves")[0].textContent);
-    document.getElementsByClassName("moves")[0].innerHTML = value + 1;
-}
+function init() {
+    let fa_elements = document.querySelectorAll('body > div > ul > li > i');
+    let i = 0;
 
-function no_match() {
-    let first_cart = document.getElementsByClassName(open_cards[open_cards.length - 1]);
-    let second_cart = document.getElementsByClassName(open_cards[open_cards.length - 2]);
-
-    for (let element of first_cart) {
-        element.parentElement.classList.remove('open', 'show', 'match');
+    card_icons = shuffle(card_icons);
+    for (let element of fa_elements){
+        element.classList.add(card_icons[i]);
+        element.setAttribute("id", i);
+        i += 1;
     }
-    for (let element of second_cart) {
-        element.parentElement.classList.remove('open', 'show', 'match');
-    }
-    open_cards.pop();
-    open_cards.pop();
 }
+init();
 
-function do_match() {
-    let already_opened_cards = document.getElementsByClassName(entry);
-    for (let selected_entries of already_opened_cards) {
-        selected_entries.parentElement.classList.add("match");
-    }
-}
-
-function show_up(card_element) {
-    card_element.classList.add('open', 'show');
-    let clicked_class = card_element.childNodes[1].getAttribute("class").split(' ')[1];
-    return clicked_class;
-}
-
-// Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -55,15 +44,54 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
+}
+
+/* set counter up */
+function set_action_counter_up() {
+    let value = parseInt(document.getElementsByClassName("moves")[0].textContent);
+    document.getElementsByClassName("moves")[0].innerHTML = value + 1;
+}
+
+/* cards do not match */
+function no_match() {
+    let first_cart = document.getElementById(open_ids[open_ids.length - 1]);
+    let second_cart = document.getElementById(open_ids[open_ids.length - 2]);
+
+    first_cart.parentElement.classList.add('no-match');
+    second_cart.parentElement.classList.add('no-match');
+
+    open_ids = [];
+    open_cards.pop();
+    open_cards.pop();
+
+    setTimeout(function(){
+        first_cart.parentElement.classList.remove('open', 'show', 'no-match');
+        second_cart.parentElement.classList.remove('open', 'show', 'no-match');
+    }, 600);
+}
+
+/* cards do match */
+function do_match(entry) {
+    let already_opened_cards = document.getElementsByClassName(entry);
+    for (let selected_entries of already_opened_cards) {
+        selected_entries.parentElement.classList.add("match");
+    }
+}
+
+/* show cards */
+function show_up(card_element) {
+    open_ids.push(card_element.childNodes[1].getAttribute("id"));
+    touched_ids.push(card_element.childNodes[1].getAttribute("id"));
+    card_element.classList.add('open', 'show');
+    return card_element.childNodes[1].getAttribute("class").split(' ')[1];
 }
 
 /* reset all cards */
 let reset_button = document.getElementsByClassName('restart');
-reset_button[0].addEventListener('click', function (){
+reset_button[0].addEventListener('click', function () {
     let elements = document.getElementsByClassName("card");
-    for (let element of elements){
+    for (let element of elements) {
         element.classList.remove('open', 'show', 'match');
     }
     open_cards = [];
@@ -72,35 +100,28 @@ reset_button[0].addEventListener('click', function (){
 /* open card deck on click */
 let classname = document.getElementsByClassName("card");
 for (let i = 0; i < classname.length; i++) {
-    classname[i].addEventListener('click', function (){
-        set_action_counter_up();
-        let clicked_class = show_up(this);
+    classname[i].addEventListener('click', function () {
         let hit = false;
+        let clicked_class = show_up(this);
 
         // Iterate cards and check if match
-        for (let entry of open_cards){
-            if (clicked_class === entry) {
-                do_match();
+        for (let entry of open_cards) {
+            if (clicked_class === entry && open_ids[open_ids.length - 1] !== open_ids[open_ids.length - 2]) {
+                do_match(entry);
                 hit = true;
             }
         }
         open_cards.push(clicked_class);
-        
+
         // Cards do not match
-        if (open_cards.length % 2 === 0 && hit === false){
-            no_match();
+        if (open_cards.length % 2 === 0) {
+            set_action_counter_up();
+            if (hit === false) {
+                no_match();
+            }
         }
     }, false);
 }
-
-/*
-const mainHeading = document.body.querySelectorAll('.card');
-
-mainHeading.addEventListener('click', function () {
-    console.log('The heading was clicked!');
-});
-*/
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
