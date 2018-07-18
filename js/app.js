@@ -1,7 +1,7 @@
 let open_ids = [];
 let touched_ids = []
 let open_cards = [];
-let stars = 0;
+let stars = 3;
 let card_icons = [
     'fa-diamond',
     'fa-paper-plane-o',
@@ -34,6 +34,21 @@ function init() {
 }
 init();
 
+function update_star(value) {
+    stars = stars + value;
+    let i = 0;
+    let star_elements = document.getElementsByClassName("fa-star");
+
+    for (let star in star_elements){
+        i = i + 1;
+        if (i !== stars){
+            console.log('bla');
+            star.style.color = "lightblue";
+        }
+    }
+}
+
+/* initial shuffle function */
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -95,6 +110,7 @@ reset_button[0].addEventListener('click', function () {
         element.classList.remove('open', 'show', 'match');
     }
     open_cards = [];
+    update_star(-1);
 }, false);
 
 /* open card deck on click */
