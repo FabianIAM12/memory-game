@@ -28,7 +28,7 @@ body {
     flex-direction: column;
 }
 
-h1 {
+h1, h2 {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
 }
@@ -121,4 +121,41 @@ h1 {
 .fa-star {
     border-width: thin;
     color: #ffd700;
+}
+
+/*
+ * Winning
+ */
+
+.headline-top h1 {
+    font-weight: bold!important;
+    font-size: 50px;
+    padding-top: 3px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.subheadline h2 {
+    font-size: 26px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: dimgrey;
+    text-align: center;
+}
+
+.play_again_button {
+    font-weight: bold;
+    background-color: #0DC7BB;
+    padding: 10px 15px 8px 15px;
+    border-radius: 5px;
+    color: white;
+    width: 120px;
+    text-align: center;
+    margin:0 auto;
+}
+
+.winner-container {
+    padding-top: 260px;
+    width:800px;
+    margin:0 auto;
 }
