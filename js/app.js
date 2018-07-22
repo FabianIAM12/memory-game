@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    'use strict';
+
     let open_ids = [];
     let open_cards = [];
     let locked_ids = [];
@@ -23,6 +25,7 @@ $(document).ready(function() {
     ];
 
     function init() {
+        'use strict';
         let fa_elements = document.querySelectorAll('body > div > ul > li > i');
         let i = 0;
 
@@ -32,8 +35,8 @@ $(document).ready(function() {
             element.setAttribute("id", i);
             i += 1;
         }
-        document.getElementById("timer").innerHTML = 0;
-        document.getElementsByClassName("moves")[0].innerHTML = 0;
+        document.getElementById("timer").innerHTML = '0';
+        document.getElementsByClassName("moves")[0].innerHTML = '0';
         stars = 3;
     }
     init();
