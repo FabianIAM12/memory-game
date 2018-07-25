@@ -42,11 +42,11 @@ $(document).ready(function() {
     init();
 
     function update_stars(moves) {
-        if (moves < 8) {
+        if (moves < 13) {
             stars = 3;
-        } else if (moves > 8 && moves < 15){
+        } else if (moves > 13 && moves < 19){
             stars = 2;
-        } else if (moves > 15 && moves < 25) {
+        } else if (moves > 19 && moves < 25) {
             stars = 1;
         } else if (moves > 25) {
             stars = 0;
