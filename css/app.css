@@ -159,3 +159,93 @@ h1, h2 {
     width:800px;
     margin:0 auto;
 }
+
+/*
+ * Mobile & Tablet Views
+ */
+
+ /*
+  * Small Mobile
+  */
+ @media only screen and (min-width: 320px) {
+   .score-panel {
+     width: 90%;
+   }
+   .deck {
+     min-height: 385px;
+     width: 90%;
+     padding: 8px;
+   }
+   .deck .card {
+     width: 64px;
+   }
+ }
+ /*
+  * Medium Mobile
+  */
+ @media only screen and (min-width: 375px) {
+   .deck .card {
+     height: 74px;
+     width: 74px;
+   }
+ }
+ /*
+  * Large Mobile
+  */
+ @media only screen and (min-width: 425px) {
+   .deck {
+     min-height: 520px;
+     width: 90%;
+     padding: 12px;
+   }
+   .deck .card {
+     height: 85px;
+     width: 85px;
+   }
+ }
+ /*
+ *  Keeping a Row of 4 as we expand to Tablet
+ */
+ @media only screen and (min-width: 480px) {
+   .deck .card {
+     height: 95px;
+     width: 95px;
+   }
+ }
+ @media only screen and (min-width: 550px) {
+   .deck .card {
+     height: 100px;
+     width: 100px;
+   }
+ }
+ @media only screen and (min-width: 580px) {
+   .deck .card {
+     height: 115px;
+     width: 115px;
+   }
+ }
+
+ @media only screen and (min-width: 660px) {
+   .deck {
+     min-height: 600px;
+   }
+   .deck .card {
+     height: 120px;
+     width: 120px;
+   }
+ }
+
+ @media only screen and (min-width: 690px) {
+   .score-panel {
+    width: 345px;
+   }
+   .deck {
+     width: 660px;
+     min-height: 680px;
+     padding: 32px;
+   }
+   .deck .card {
+     height: 125px;
+     width: 125px;
+   }
+ }
